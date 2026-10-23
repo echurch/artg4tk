@@ -81,7 +81,7 @@ public:
 
 protected:
   void Neutron() override;
-  void ExtraConfiguration() override;
+
 };
 
 // 2002 by J.P. Wellisch

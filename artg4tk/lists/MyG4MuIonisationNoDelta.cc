@@ -95,7 +95,7 @@
 
 #include "Geant4/G4UniversalFluctuation.hh"
 #include "Geant4/G4IonFluctuations.hh"
-#include "Geant4/G4BohrFluctuations.hh"
+#include "Geant4/G4UniversalFluctuation.hh"
 #include "Geant4/G4UnitsTable.hh"
 #include "Geant4/G4ICRU73QOModel.hh"
 #include "Geant4/G4EmParameters.hh"
@@ -184,9 +184,10 @@ void MyG4MuIonisationNoDelta::InitialiseEnergyLossProcess(const G4ParticleDefini
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo....
-
+/*
 void MyG4MuIonisationNoDelta::PrintInfo()
 {}
+*/
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo....
 

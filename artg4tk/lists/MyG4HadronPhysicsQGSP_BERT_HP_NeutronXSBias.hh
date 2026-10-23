@@ -70,8 +70,8 @@
 #include "Geant4/G4NeutronPHPBuilder.hh"
 
 // -- Other builders
-#include "Geant4/G4AntiBarionBuilder.hh"
-#include "Geant4/G4FTFPAntiBarionBuilder.hh"
+//#include "Geant4/G4AntiBarionBuilder.hh"
+//#include "Geant4/G4FTFPAntiBarionBuilder.hh"
 #include "Geant4/G4HyperonFTFPBuilder.hh"
 
 class G4ComponentGGHadronNucleusXsc;
@@ -110,8 +110,8 @@ private:
 
     G4HyperonFTFPBuilder* theHyperon;
 
-    G4AntiBarionBuilder* theAntiBaryon;
-    G4FTFPAntiBarionBuilder* theFTFPAntiBaryon;
+    //    G4AntiBarionBuilder* theAntiBaryon;
+    //    G4FTFPAntiBarionBuilder* theFTFPAntiBaryon;
 
     G4ComponentGGHadronNucleusXsc* xsKaon;
     G4VCrossSectionDataSet* xsNeutronCaptureXS;

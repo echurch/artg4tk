@@ -40,10 +40,10 @@
 
 #include "Geant4/globals.hh"
 
-#include "Geant4/G4HadronCaptureProcess.hh"
+#include "Geant4/G4NeutronCaptureProcess.hh"
 #include "Geant4/G4HadronElasticProcess.hh"
-#include "Geant4/G4HadronFissionProcess.hh"
-#include "Geant4/G4NeutronInelasticProcess.hh"
+#include "Geant4/G4NeutronFissionProcess.hh"
+#include "Geant4/G4HadronInelasticProcess.hh"
 #include "Geant4/G4VNeutronBuilder.hh"
 
 #include "Geant4/G4ParticleHPElastic.hh"
@@ -62,9 +62,9 @@ public:
 
 public:
   void Build(G4HadronElasticProcess* aP) final override;
-  void Build(G4HadronFissionProcess* aP) final override;
-  void Build(G4HadronCaptureProcess* aP) final override;
-  void Build(G4NeutronInelasticProcess* aP) final override;
+  void Build(G4NeutronFissionProcess* aP) final override;
+  void Build(G4NeutronCaptureProcess* aP) final override;
+  void Build(G4HadronInelasticProcess* aP) final override;
 
   virtual void
   SetMinEnergy(G4double aM) final override

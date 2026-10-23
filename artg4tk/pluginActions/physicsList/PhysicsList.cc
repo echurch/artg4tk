@@ -11,7 +11,8 @@
 // geant 4 physics constructors:
 #include "Geant4/G4NeutronTrackingCut.hh"
 #include "Geant4/G4OpticalPhysics.hh"
-#include "Geant4/G4SystemOfUnits.hh"
+#include "Geant4/G4OpticalParameters.hh"
+// (keep the G4OpticalPhysics include — you still register the constructor itself)
 
 #include <fstream>
 #include <memory>
@@ -20,7 +21,7 @@ artg4tk::PhysicsListService::PhysicsListService(fhicl::ParameterSet const& p)
   : PhysicsListName_(p.get<std::string>("PhysicsListName", "FTFP_BERT"))
   , DumpList_(p.get<bool>("DumpList", false))
   , enableNeutronLimit_(p.get<bool>("enableNeutronLimit", true))
-  , NeutronTimeLimit_(p.get<double>("NeutronTimeLimit", 10. * microsecond))
+  , NeutronTimeLimit_(p.get<double>("NeutronTimeLimit", 10. * CLHEP::microsecond))
   , NeutronKinELimit_(p.get<double>("NeutronKinELimit", 0.0))
   , enableStepLimit_(p.get<bool>("enableStepLimit", true))
   , enableOptical_(p.get<bool>("enableOptical", true))
@@ -76,6 +77,28 @@ artg4tk::PhysicsListService::makePhysicsList()
   }
 
   if (enableOptical_) {
+
+    // opticalPhysics object still gets created/registered as before:
+    //   physicsList->RegisterPhysics(opticalPhysics);
+    auto* opticalParams = G4OpticalParameters::Instance();
+
+    opticalParams->SetProcessActivation("Cerenkov", enableCerenkov_);
+    opticalParams->SetCerenkovStackPhotons(CerenkovStackPhotons_);
+    opticalParams->SetProcessActivation("Scintillation", enableScintillation_);
+    opticalParams->SetScintStackPhotons(ScintillationStackPhotons_);
+    opticalParams->SetScintByParticleType(ScintillationByParticleType_);
+    opticalParams->SetScintTrackInfo(ScintillationTrackInfo_);
+    opticalParams->SetScintTrackSecondariesFirst(/*kScintillation,*/ true);
+    opticalParams->SetCerenkovTrackSecondariesFirst(/*kCerenkov,*/ true);
+    opticalParams->SetCerenkovMaxPhotonsPerStep(CerenkovMaxNumPhotons_);
+    opticalParams->SetCerenkovMaxBetaChange(CerenkovMaxBetaChange_);
+    opticalParams->SetProcessActivation("OpAbsorption", enableAbsorption_);
+    opticalParams->SetProcessActivation("OpRayleigh", enableRayleigh_);
+    opticalParams->SetProcessActivation("OpMieHG", enableMieHG_);
+    opticalParams->SetProcessActivation("OpBoundary", enableBoundary_);
+    opticalParams->SetProcessActivation("OpWLS", enableWLS_);
+
+    /*
     G4OpticalPhysics* opticalPhysics = (G4OpticalPhysics*)phys->GetPhysics("Optical");
     opticalPhysics->Configure(kCerenkov, enableCerenkov_);
     opticalPhysics->SetCerenkovStackPhotons(CerenkovStackPhotons_);
@@ -95,6 +118,7 @@ artg4tk::PhysicsListService::makePhysicsList()
     opticalPhysics->Configure(kBoundary, enableBoundary_);
     opticalPhysics->SetVerboseLevel(verbositylevel_);
     opticalPhysics->Configure(kWLS, enableWLS_);
+    */
   }
   if (enableNeutronLimit_) {
     G4NeutronTrackingCut* neutrcut = (G4NeutronTrackingCut*)phys->GetPhysics("neutronTrackingCut");

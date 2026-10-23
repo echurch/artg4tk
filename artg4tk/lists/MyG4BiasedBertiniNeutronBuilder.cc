@@ -65,7 +65,7 @@ MyG4BiasedBertiniNeutronBuilder::MyG4BiasedBertiniNeutronBuilder(G4double XSMult
 }
 
 void
-MyG4BiasedBertiniNeutronBuilder::Build(G4NeutronInelasticProcess* aP)
+MyG4BiasedBertiniNeutronBuilder::Build(G4HadronInelasticProcess* aP)
 {
   theModel->SetMinEnergy(theMin);
   theModel->SetMaxEnergy(theMax);
@@ -80,11 +80,11 @@ MyG4BiasedBertiniNeutronBuilder::Build(G4HadronElasticProcess*)
 {}
 
 void
-MyG4BiasedBertiniNeutronBuilder::Build(G4HadronFissionProcess*)
+MyG4BiasedBertiniNeutronBuilder::Build(G4NeutronFissionProcess*)
 {}
 
 void
-MyG4BiasedBertiniNeutronBuilder::Build(G4HadronCaptureProcess*)
+MyG4BiasedBertiniNeutronBuilder::Build(G4NeutronCaptureProcess*)
 {}
 
 // 2002 by J.P. Wellisch

@@ -38,7 +38,8 @@
 
 #include "Geant4/G4hIonisation.hh"
 #include "Geant4/G4ionIonisation.hh"
-#include "Geant4/G4alphaIonisation.hh"
+//#include "Geant4/G4alphaIonisation.hh" // EC, 22-Oct-2026
+#include "Geant4/G4ionIonisation.hh"
 
 #include "Geant4/G4ParticleTable.hh"
 #include "Geant4/G4Gamma.hh"

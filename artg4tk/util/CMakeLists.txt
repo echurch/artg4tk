@@ -8,6 +8,8 @@ cet_make_library(SOURCE
   art::Framework_Principal
   art::Framework_Services_Registry
   messagefacility::MF_MessageLogger
+  Geant4::G4geometry	
+  Geant4::G4graphics_reps
   PRIVATE
   cetlib_except::cetlib_except
 )

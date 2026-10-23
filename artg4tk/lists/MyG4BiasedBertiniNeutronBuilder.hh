@@ -44,10 +44,10 @@
 
 #include "Geant4/globals.hh"
 
-#include "Geant4/G4HadronCaptureProcess.hh"
+#include "Geant4/G4NeutronCaptureProcess.hh"
 #include "Geant4/G4HadronElasticProcess.hh"
-#include "Geant4/G4HadronFissionProcess.hh"
-#include "Geant4/G4NeutronInelasticProcess.hh"
+#include "Geant4/G4NeutronFissionProcess.hh"
+#include "Geant4/G4HadronInelasticProcess.hh"
 #include "Geant4/G4VNeutronBuilder.hh"
 
 #include "Geant4/G4CascadeInterface.hh"
@@ -58,9 +58,9 @@ public:
   MyG4BiasedBertiniNeutronBuilder(G4double XSMultiplier);
 
   void Build(G4HadronElasticProcess* aP) override;
-  void Build(G4HadronFissionProcess* aP) override;
-  void Build(G4HadronCaptureProcess* aP) override;
-  void Build(G4NeutronInelasticProcess* aP) override;
+  void Build(G4NeutronFissionProcess* aP) override;
+  void Build(G4NeutronCaptureProcess* aP) override;
+  void Build(G4HadronInelasticProcess* aP) override;
 
   void
   SetMinEnergy(G4double aM) override

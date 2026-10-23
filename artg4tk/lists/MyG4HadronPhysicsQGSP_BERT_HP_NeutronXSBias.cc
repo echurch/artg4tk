@@ -61,7 +61,7 @@
 
 #include "Geant4/G4ComponentGGHadronNucleusXsc.hh"
 #include "Geant4/G4CrossSectionInelastic.hh"
-#include "Geant4/G4HadronCaptureProcess.hh"
+#include "Geant4/G4NeutronCaptureProcess.hh"
 #include "Geant4/G4LFission.hh"
 #include "Geant4/G4NeutronCaptureXS.hh"
 #include "Geant4/G4NeutronRadCapture.hh"
@@ -142,10 +142,20 @@ MyG4HadronPhysicsQGSP_BERT_HP_NeutronXSBias::CreateModels()
   tpdata->theBertiniPiK->SetMaxEnergy(maxBERT);
 
   tpdata->theHyperon = new G4HyperonFTFPBuilder;
-
+  /*
   tpdata->theAntiBaryon = new G4AntiBarionBuilder;
   tpdata->theAntiBaryon->RegisterMe(tpdata->theFTFPAntiBaryon =
                                       new G4FTFPAntiBarionBuilder(quasiElasticFTF));
+  */
+  /*
+    This effort fails too. EC, 22-Oct-2026
+  auto abb = new G4AntiBarionBuilder();
+  AddBuilder(abb);
+  auto ftfpab = new G4FTFPAntiBarionBuilder(QuasiElasticFTF);
+  AddBuilder(ftfpab);
+  abb->RegisterMe(ftfpab);
+  abb->Build();
+  */
 }
 
 MyG4HadronPhysicsQGSP_BERT_HP_NeutronXSBias::~MyG4HadronPhysicsQGSP_BERT_HP_NeutronXSBias()
@@ -166,8 +176,8 @@ MyG4HadronPhysicsQGSP_BERT_HP_NeutronXSBias::~MyG4HadronPhysicsQGSP_BERT_HP_Neut
   delete tpdata->theQGSPPro;
   delete tpdata->theFTFPPro;
   delete tpdata->thePro;
-  delete tpdata->theFTFPAntiBaryon;
-  delete tpdata->theAntiBaryon;
+  //  delete tpdata->theFTFPAntiBaryon;
+  //  delete tpdata->theAntiBaryon;
   delete tpdata->theHyperon;
 
   delete tpdata;
@@ -214,7 +224,7 @@ MyG4HadronPhysicsQGSP_BERT_HP_NeutronXSBias::ConstructProcess()
   G4PhysListUtil::FindInelasticProcess(G4KaonZeroLong::KaonZeroLong())->AddDataSet(kaonxs);
 
   tpdata->theHyperon->Build();
-  tpdata->theAntiBaryon->Build();
+  //  tpdata->theAntiBaryon->Build();
 
   // --- Neutrons ---
   G4HadronicProcess* capture = 0;
@@ -229,7 +239,7 @@ MyG4HadronPhysicsQGSP_BERT_HP_NeutronXSBias::ConstructProcess()
     }
   }
   if (!capture) {
-    capture = new G4HadronCaptureProcess("nCapture");
+    capture = new G4NeutronCaptureProcess("nCapture");
     pmanager->AddDiscreteProcess(capture);
   }
   tpdata->xsNeutronCaptureXS =
@@ -241,7 +251,7 @@ MyG4HadronPhysicsQGSP_BERT_HP_NeutronXSBias::ConstructProcess()
   theNeutronRadCapture->SetMinEnergy(19.9 * MeV);
   capture->RegisterMe(theNeutronRadCapture);
   if (!fission) {
-    fission = new G4HadronFissionProcess("nFission");
+    fission = new G4NeutronFissionProcess("nFission");
     pmanager->AddDiscreteProcess(fission);
   }
   G4LFission* theNeutronLEPFission = new G4LFission();

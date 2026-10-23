@@ -87,7 +87,7 @@ artg4tk::ExampleGeneralActionService::userSteppingAction(const G4Step* currStep)
   G4StepPoint* thePrePoint = currStep->GetPreStepPoint();
   G4VPhysicalVolume* thePrePV = thePrePoint->GetPhysicalVolume();
   G4String thePrePVname = thePrePV->GetName();
-  if (thePrePVname(0, 4) == "calo") {
+  if (thePrePVname.substr(0, 4) == "calo") {
     return;
   }
 
@@ -96,7 +96,7 @@ artg4tk::ExampleGeneralActionService::userSteppingAction(const G4Step* currStep)
   G4StepPoint* thePostPoint = currStep->GetPostStepPoint();
   G4VPhysicalVolume* thePostPV = thePostPoint->GetPhysicalVolume();
   G4String thePostPVname = thePostPV->GetName();
-  if (thePostPVname(0, 4) != "calo") {
+  if (thePostPVname.substr(0, 4) != "calo") {
     return;
   }
 

@@ -63,7 +63,7 @@
 #include "Geant4/G4QGSPNeutronBuilder.hh"
 //#include "Geant4/G4NeutronPHPBuilder.hh"
 
-#include "Geant4/G4HadronCaptureProcess.hh"
+#include "Geant4/G4NeutronCaptureProcess.hh"
 #include "Geant4/G4LFission.hh"
 #include "Geant4/G4NeutronCaptureXS.hh"
 #include "Geant4/G4NeutronRadCapture.hh"
@@ -93,35 +93,13 @@ MyG4HadronPhysicsQGSP_BERT_ArHP::MyG4HadronPhysicsQGSP_BERT_ArHP(const G4String&
   minBERT_neutron = 19.9 * MeV;
 }
 
-void
-MyG4HadronPhysicsQGSP_BERT_ArHP::Neutron()
-{
-  auto neu = new G4NeutronBuilder(true); // Fission on
-  AddBuilder(neu);
-  auto qgs = new G4QGSPNeutronBuilder(QuasiElasticQGS);
-  AddBuilder(qgs);
-  qgs->SetMinEnergy(minQGSP_neutron);
-  neu->RegisterMe(qgs);
-  auto ftf = new G4FTFPNeutronBuilder(QuasiElasticFTF);
-  AddBuilder(ftf);
-  ftf->SetMinEnergy(minFTFP_neutron);
-  ftf->SetMaxEnergy(maxFTFP_neutron);
-  neu->RegisterMe(ftf);
-  auto bert = new G4BertiniNeutronBuilder;
-  AddBuilder(bert);
-  bert->SetMinEnergy(minBERT_neutron);
-  bert->SetMaxEnergy(maxBERT_neutron);
-  neu->RegisterMe(bert);
-  auto hp = new MyG4NeutronPHPBuilder;
-  AddBuilder(hp);
-  neu->RegisterMe(hp);
-  neu->Build();
-}
+// Big Swap out, EC, 22-Oct-2026.
 
-void
-MyG4HadronPhysicsQGSP_BERT_ArHP::ExtraConfiguration()
+void MyG4HadronPhysicsQGSP_BERT_ArHP::Neutron()
 {
-  // --- Neutrons ---
+  //  G4HadronicParameters* param = G4HadronicParameters::Instance();
+  //  G4bool useFactorXS = param->ApplyFactorXS();
+
   const G4ParticleDefinition* neutron = G4Neutron::Neutron();
   G4HadronicProcess* capture = G4PhysListUtil::FindCaptureProcess(neutron);
   if (capture) {
@@ -137,3 +115,7 @@ MyG4HadronPhysicsQGSP_BERT_ArHP::ExtraConfiguration()
     fission->RegisterMe(theNeutronLEPFission);
   }
 }
+
+
+
+

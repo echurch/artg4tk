@@ -12,7 +12,7 @@ cet_make_library(SOURCE
     PUBLIC
     artg4tk::DataProducts_G4DetectorHits
     Geant4::G4digits_hits
-    Geant4::G4persistency
+    Geant4::G4gdml
     Geant4::G4track
     canvas::canvas
     PRIVATE
